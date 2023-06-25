@@ -1,0 +1,61 @@
+@extends('backend.layouts.app')
+
+@section('title', __('Create Product Promotion'))
+
+@section('content')
+    <x-forms.post :action="route('admin.product_promotion.store')">
+        <x-backend.card>
+            <x-slot name="header">
+                @lang('Create Product Promotion')
+            </x-slot>
+
+            <x-slot name="headerActions">
+                <x-utils.link class="card-header-action" :href="route('admin.product_promotion.index')" :text="__('Cancel')" />
+            </x-slot>
+
+            <x-slot name="body">
+                <div class="form-group row">
+                    <label for="promotion_id" class="col-md-2 col-form-label">@lang('Promotion Name')</label>
+                    <div class="col-md-10">
+                        <select name="promotion_id" class="form-control">
+                            <option selected>Select a promotion name</option>
+                                @foreach ($promotions as $promotion)
+                                    <option value="{{ $promotion->id }}">{{ $promotion->name }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div><!--form-group-->
+
+                <div class="form-group row">
+                    <label for="product_id" class="col-md-2 col-form-label">@lang('Product Name')</label>
+                    <div class="col-md-10">
+                        <select name="product_id" class="form-control">
+                            <option selected>Select a product name</option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div><!--form-group-->
+
+                <div class="form-group row">
+                  <label for="quantity" class="col-md-2 col-form-label">@lang('Quantity')</label>
+                  <div class="col-md-10">
+                     <input type="text" name="quantity" class="form-control" placeholder="{{ __('Quantity') }}" value="{{ old('quantity') }}" />
+                  </div>
+                </div><!--form-group-->
+
+                <div class="form-group row">
+                    <label for="image" class="col-md-2 col-form-label">@lang('Image')</label>
+                    <div class="col-md-10">
+                        <input type="file" name="image" class="form-control" />
+                    </div>
+                </div><!--form-group-->
+            </x-slot>
+
+            <x-slot name="footer">
+                <button class="btn btn-sm btn-primary float-right" type="submit">@lang('Create Product Promotion')</button>
+            </x-slot>
+        </x-backend.card>
+    </x-forms.patch>
+@endsection
